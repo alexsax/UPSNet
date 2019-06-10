@@ -1,0 +1,182 @@
+Evaluate annotation type *segm*
+DONE (t=30.34s).
+Accumulating evaluation results...
+DONE (t=3.44s).
+2019-06-10 01:33:19,772 | base_dataset.py | line 731: ~~~~ Mean and per-category AP @ IoU=[0.50,0.95] ~~~~
+2019-06-10 01:33:19,772 | base_dataset.py | line 739: 0.426
+2019-06-10 01:33:19,772 | base_dataset.py | line 739: 0.151
+2019-06-10 01:33:19,772 | base_dataset.py | line 739: 0.357
+2019-06-10 01:33:19,772 | base_dataset.py | line 739: 0.290
+2019-06-10 01:33:19,772 | base_dataset.py | line 739: 0.476
+2019-06-10 01:33:19,772 | base_dataset.py | line 739: 0.611
+2019-06-10 01:33:19,772 | base_dataset.py | line 739: 0.601
+2019-06-10 01:33:19,772 | base_dataset.py | line 739: 0.303
+2019-06-10 01:33:19,772 | base_dataset.py | line 739: 0.212
+2019-06-10 01:33:19,773 | base_dataset.py | line 739: 0.240
+2019-06-10 01:33:19,773 | base_dataset.py | line 739: 0.581
+2019-06-10 01:33:19,773 | base_dataset.py | line 739: 0.626
+2019-06-10 01:33:19,773 | base_dataset.py | line 739: 0.440
+2019-06-10 01:33:19,773 | base_dataset.py | line 739: 0.159
+2019-06-10 01:33:19,773 | base_dataset.py | line 739: 0.261
+2019-06-10 01:33:19,773 | base_dataset.py | line 739: 0.639
+2019-06-10 01:33:19,773 | base_dataset.py | line 739: 0.550
+2019-06-10 01:33:19,773 | base_dataset.py | line 739: 0.374
+2019-06-10 01:33:19,773 | base_dataset.py | line 739: 0.412
+2019-06-10 01:33:19,773 | base_dataset.py | line 739: 0.451
+2019-06-10 01:33:19,773 | base_dataset.py | line 739: 0.544
+2019-06-10 01:33:19,774 | base_dataset.py | line 739: 0.671
+2019-06-10 01:33:19,774 | base_dataset.py | line 739: 0.527
+2019-06-10 01:33:19,774 | base_dataset.py | line 739: 0.460
+2019-06-10 01:33:19,774 | base_dataset.py | line 739: 0.123
+2019-06-10 01:33:19,774 | base_dataset.py | line 739: 0.423
+2019-06-10 01:33:19,774 | base_dataset.py | line 739: 0.124
+2019-06-10 01:33:19,774 | base_dataset.py | line 739: 0.262
+2019-06-10 01:33:19,774 | base_dataset.py | line 739: 0.359
+2019-06-10 01:33:19,774 | base_dataset.py | line 739: 0.600
+2019-06-10 01:33:19,774 | base_dataset.py | line 739: 0.018
+2019-06-10 01:33:19,774 | base_dataset.py | line 739: 0.210
+2019-06-10 01:33:19,774 | base_dataset.py | line 739: 0.419
+2019-06-10 01:33:19,774 | base_dataset.py | line 739: 0.264
+2019-06-10 01:33:19,775 | base_dataset.py | line 739: 0.209
+2019-06-10 01:33:19,775 | base_dataset.py | line 739: 0.363
+2019-06-10 01:33:19,775 | base_dataset.py | line 739: 0.271
+2019-06-10 01:33:19,775 | base_dataset.py | line 739: 0.281
+2019-06-10 01:33:19,775 | base_dataset.py | line 739: 0.496
+2019-06-10 01:33:19,775 | base_dataset.py | line 739: 0.331
+2019-06-10 01:33:19,775 | base_dataset.py | line 739: 0.272
+2019-06-10 01:33:19,775 | base_dataset.py | line 739: 0.369
+2019-06-10 01:33:19,775 | base_dataset.py | line 739: 0.109
+2019-06-10 01:33:19,775 | base_dataset.py | line 739: 0.088
+2019-06-10 01:33:19,775 | base_dataset.py | line 739: 0.085
+2019-06-10 01:33:19,775 | base_dataset.py | line 739: 0.377
+2019-06-10 01:33:19,775 | base_dataset.py | line 739: 0.179
+2019-06-10 01:33:19,776 | base_dataset.py | line 739: 0.183
+2019-06-10 01:33:19,776 | base_dataset.py | line 739: 0.326
+2019-06-10 01:33:19,776 | base_dataset.py | line 739: 0.283
+2019-06-10 01:33:19,776 | base_dataset.py | line 739: 0.216
+2019-06-10 01:33:19,776 | base_dataset.py | line 739: 0.163
+2019-06-10 01:33:19,776 | base_dataset.py | line 739: 0.207
+2019-06-10 01:33:19,776 | base_dataset.py | line 739: 0.491
+2019-06-10 01:33:19,776 | base_dataset.py | line 739: 0.448
+2019-06-10 01:33:19,776 | base_dataset.py | line 739: 0.354
+2019-06-10 01:33:19,776 | base_dataset.py | line 739: 0.149
+2019-06-10 01:33:19,776 | base_dataset.py | line 739: 0.316
+2019-06-10 01:33:19,776 | base_dataset.py | line 739: 0.201
+2019-06-10 01:33:19,776 | base_dataset.py | line 739: 0.316
+2019-06-10 01:33:19,777 | base_dataset.py | line 739: 0.133
+2019-06-10 01:33:19,777 | base_dataset.py | line 739: 0.551
+2019-06-10 01:33:19,777 | base_dataset.py | line 739: 0.545
+2019-06-10 01:33:19,777 | base_dataset.py | line 739: 0.567
+2019-06-10 01:33:19,777 | base_dataset.py | line 739: 0.587
+2019-06-10 01:33:19,777 | base_dataset.py | line 739: 0.236
+2019-06-10 01:33:19,777 | base_dataset.py | line 739: 0.494
+2019-06-10 01:33:19,777 | base_dataset.py | line 739: 0.298
+2019-06-10 01:33:19,777 | base_dataset.py | line 739: 0.521
+2019-06-10 01:33:19,777 | base_dataset.py | line 739: 0.279
+2019-06-10 01:33:19,777 | base_dataset.py | line 739: 0.475
+2019-06-10 01:33:19,777 | base_dataset.py | line 739: 0.319
+2019-06-10 01:33:19,777 | base_dataset.py | line 739: 0.525
+2019-06-10 01:33:19,778 | base_dataset.py | line 739: 0.088
+2019-06-10 01:33:19,778 | base_dataset.py | line 739: 0.502
+2019-06-10 01:33:19,778 | base_dataset.py | line 739: 0.352
+2019-06-10 01:33:19,778 | base_dataset.py | line 739: 0.166
+2019-06-10 01:33:19,778 | base_dataset.py | line 739: 0.409
+2019-06-10 01:33:19,778 | base_dataset.py | line 739: 0.018
+2019-06-10 01:33:19,778 | base_dataset.py | line 739: 0.117
+2019-06-10 01:33:19,778 | base_dataset.py | line 741: 0.343
+2019-06-10 01:33:19,778 | base_dataset.py | line 731: ~~~~ Mean and per-category AP @ IoU=[0.50,0.50] ~~~~
+2019-06-10 01:33:19,778 | base_dataset.py | line 739: 0.775
+2019-06-10 01:33:19,778 | base_dataset.py | line 739: 0.401
+2019-06-10 01:33:19,778 | base_dataset.py | line 739: 0.635
+2019-06-10 01:33:19,779 | base_dataset.py | line 739: 0.598
+2019-06-10 01:33:19,779 | base_dataset.py | line 739: 0.841
+2019-06-10 01:33:19,779 | base_dataset.py | line 739: 0.810
+2019-06-10 01:33:19,779 | base_dataset.py | line 739: 0.837
+2019-06-10 01:33:19,779 | base_dataset.py | line 739: 0.517
+2019-06-10 01:33:19,779 | base_dataset.py | line 739: 0.490
+2019-06-10 01:33:19,779 | base_dataset.py | line 739: 0.536
+2019-06-10 01:33:19,779 | base_dataset.py | line 739: 0.877
+2019-06-10 01:33:19,779 | base_dataset.py | line 739: 0.722
+2019-06-10 01:33:19,779 | base_dataset.py | line 739: 0.609
+2019-06-10 01:33:19,779 | base_dataset.py | line 739: 0.327
+2019-06-10 01:33:19,779 | base_dataset.py | line 739: 0.500
+2019-06-10 01:33:19,779 | base_dataset.py | line 739: 0.912
+2019-06-10 01:33:19,779 | base_dataset.py | line 739: 0.793
+2019-06-10 01:33:19,779 | base_dataset.py | line 739: 0.729
+2019-06-10 01:33:19,780 | base_dataset.py | line 739: 0.713
+2019-06-10 01:33:19,780 | base_dataset.py | line 739: 0.772
+2019-06-10 01:33:19,780 | base_dataset.py | line 739: 0.846
+2019-06-10 01:33:19,780 | base_dataset.py | line 739: 0.863
+2019-06-10 01:33:19,780 | base_dataset.py | line 739: 0.878
+2019-06-10 01:33:19,780 | base_dataset.py | line 739: 0.831
+2019-06-10 01:33:19,780 | base_dataset.py | line 739: 0.271
+2019-06-10 01:33:19,780 | base_dataset.py | line 739: 0.630
+2019-06-10 01:33:19,780 | base_dataset.py | line 739: 0.275
+2019-06-10 01:33:19,780 | base_dataset.py | line 739: 0.492
+2019-06-10 01:33:19,780 | base_dataset.py | line 739: 0.579
+2019-06-10 01:33:19,780 | base_dataset.py | line 739: 0.847
+2019-06-10 01:33:19,780 | base_dataset.py | line 739: 0.088
+2019-06-10 01:33:19,780 | base_dataset.py | line 739: 0.434
+2019-06-10 01:33:19,780 | base_dataset.py | line 739: 0.670
+2019-06-10 01:33:19,780 | base_dataset.py | line 739: 0.560
+2019-06-10 01:33:19,781 | base_dataset.py | line 739: 0.466
+2019-06-10 01:33:19,781 | base_dataset.py | line 739: 0.592
+2019-06-10 01:33:19,781 | base_dataset.py | line 739: 0.636
+2019-06-10 01:33:19,781 | base_dataset.py | line 739: 0.549
+2019-06-10 01:33:19,781 | base_dataset.py | line 739: 0.767
+2019-06-10 01:33:19,781 | base_dataset.py | line 739: 0.554
+2019-06-10 01:33:19,781 | base_dataset.py | line 739: 0.524
+2019-06-10 01:33:19,781 | base_dataset.py | line 739: 0.556
+2019-06-10 01:33:19,781 | base_dataset.py | line 739: 0.331
+2019-06-10 01:33:19,781 | base_dataset.py | line 739: 0.189
+2019-06-10 01:33:19,781 | base_dataset.py | line 739: 0.208
+2019-06-10 01:33:19,781 | base_dataset.py | line 739: 0.553
+2019-06-10 01:33:19,781 | base_dataset.py | line 739: 0.374
+2019-06-10 01:33:19,781 | base_dataset.py | line 739: 0.278
+2019-06-10 01:33:19,781 | base_dataset.py | line 739: 0.486
+2019-06-10 01:33:19,782 | base_dataset.py | line 739: 0.390
+2019-06-10 01:33:19,782 | base_dataset.py | line 739: 0.463
+2019-06-10 01:33:19,782 | base_dataset.py | line 739: 0.313
+2019-06-10 01:33:19,782 | base_dataset.py | line 739: 0.412
+2019-06-10 01:33:19,782 | base_dataset.py | line 739: 0.699
+2019-06-10 01:33:19,782 | base_dataset.py | line 739: 0.602
+2019-06-10 01:33:19,782 | base_dataset.py | line 739: 0.576
+2019-06-10 01:33:19,782 | base_dataset.py | line 739: 0.340
+2019-06-10 01:33:19,782 | base_dataset.py | line 739: 0.558
+2019-06-10 01:33:19,782 | base_dataset.py | line 739: 0.440
+2019-06-10 01:33:19,782 | base_dataset.py | line 739: 0.604
+2019-06-10 01:33:19,782 | base_dataset.py | line 739: 0.261
+2019-06-10 01:33:19,782 | base_dataset.py | line 739: 0.779
+2019-06-10 01:33:19,782 | base_dataset.py | line 739: 0.749
+2019-06-10 01:33:19,782 | base_dataset.py | line 739: 0.754
+2019-06-10 01:33:19,782 | base_dataset.py | line 739: 0.821
+2019-06-10 01:33:19,783 | base_dataset.py | line 739: 0.473
+2019-06-10 01:33:19,783 | base_dataset.py | line 739: 0.731
+2019-06-10 01:33:19,783 | base_dataset.py | line 739: 0.498
+2019-06-10 01:33:19,783 | base_dataset.py | line 739: 0.734
+2019-06-10 01:33:19,783 | base_dataset.py | line 739: 0.495
+2019-06-10 01:33:19,783 | base_dataset.py | line 739: 0.593
+2019-06-10 01:33:19,783 | base_dataset.py | line 739: 0.611
+2019-06-10 01:33:19,783 | base_dataset.py | line 739: 0.732
+2019-06-10 01:33:19,783 | base_dataset.py | line 739: 0.211
+2019-06-10 01:33:19,783 | base_dataset.py | line 739: 0.761
+2019-06-10 01:33:19,783 | base_dataset.py | line 739: 0.587
+2019-06-10 01:33:19,783 | base_dataset.py | line 739: 0.357
+2019-06-10 01:33:19,783 | base_dataset.py | line 739: 0.679
+2019-06-10 01:33:19,783 | base_dataset.py | line 739: 0.131
+2019-06-10 01:33:19,783 | base_dataset.py | line 739: 0.324
+2019-06-10 01:33:19,783 | base_dataset.py | line 741: 0.567
+2019-06-10 01:33:19,783 | base_dataset.py | line 743: ~~~~ Summary metrics ~~~~
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.343
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets=100 ] = 0.567
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets=100 ] = 0.362
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.156
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.369
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.514
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=  1 ] = 0.293
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 10 ] = 0.452
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.474
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.274
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.514
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.639
+

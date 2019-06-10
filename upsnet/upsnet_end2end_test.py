@@ -219,83 +219,92 @@ def upsnet_test():
     net_timer = Timer()
     post_timer = Timer()
 
-    while i_iter < len(test_loader):
-        data_timer.tic()
-        batch = []
-        labels = []
-        for gpu_id in gpus:
-            try:
-                data, label, _ = test_iter.next()
-                if label is not None:
-                    data['roidb'] = label['roidb']
-                for k, v in data.items():
-                    data[k] = v.pin_memory().to(gpu_id, non_blocking=True) if torch.is_tensor(v) else v
-            except StopIteration:
-                data = data.copy()
-                for k, v in data.items():
-                    data[k] = v.pin_memory().to(gpu_id, non_blocking=True) if torch.is_tensor(v) else v
-            batch.append((data, None))
-            labels.append(label)
-            i_iter += 1
+#     while i_iter < len(test_loader):
+#         data_timer.tic()
+#         batch = []
+#         labels = []
+#         for gpu_id in gpus:
+#             try:
+#                 data, label, _ = test_iter.next()
+#                 if label is not None:
+#                     data['roidb'] = label['roidb']
+#                 for k, v in data.items():
+#                     data[k] = v.pin_memory().to(gpu_id, non_blocking=True) if torch.is_tensor(v) else v
+#             except StopIteration:
+#                 data = data.copy()
+#                 for k, v in data.items():
+#                     data[k] = v.pin_memory().to(gpu_id, non_blocking=True) if torch.is_tensor(v) else v
+#             batch.append((data, None))
+#             labels.append(label)
+#             i_iter += 1
 
-        im_infos = [_[0]['im_info'][0] for _ in batch]
+#         im_infos = [_[0]['im_info'][0] for _ in batch]
 
-        data_time = data_timer.toc()
-        if i_iter > 10:
-            net_timer.tic()
-        with torch.no_grad():
-            output = test_model(*batch)
-            torch.cuda.synchronize()
-            if i_iter > 10:
-                net_time = net_timer.toc()
-            else:
-                net_time = 0
-            output = im_detect(output, batch, im_infos)
-        post_timer.tic()
-        for score, box, mask, cls_idx, im_info in zip(output['scores'], output['boxes'], output['masks'], output['cls_inds'], im_infos):
-            im_post(all_boxes, all_masks, score, box, mask, cls_idx, test_dataset.num_classes, np.round(im_info[:2] / im_info[2]).astype(np.int32))
-            idx += 1
-        if config.network.has_fcn_head:
-            for i, sseg in enumerate(output['ssegs']):
-                sseg = sseg.squeeze(0).astype('uint8')[:int(im_infos[i][0]), :int(im_infos[i][1])]
-                all_ssegs.append(cv2.resize(sseg, None, None, fx=1/im_infos[i][2], fy=1/im_infos[i][2], interpolation=cv2.INTER_NEAREST))
-        if config.network.has_panoptic_head:
-            pano_cls_inds = []
-            for i, (pano, cls_ind) in enumerate(zip(output['panos'], output['pano_cls_inds'])):
-                pano = pano.squeeze(0).astype('uint8')[:int(im_infos[i][0]), :int(im_infos[i][1])]
-                panos.append(cv2.resize(pano, None, None, fx=1/im_infos[i][2], fy=1/im_infos[i][2], interpolation=cv2.INTER_NEAREST))
-                pano_cls_inds.append(cls_ind)
+#         data_time = data_timer.toc()
+#         if i_iter > 10:
+#             net_timer.tic()
+#         with torch.no_grad():
+#             output = test_model(*batch)
+#             torch.cuda.synchronize()
+#             if i_iter > 10:
+#                 net_time = net_timer.toc()
+#             else:
+#                 net_time = 0
+#             output = im_detect(output, batch, im_infos)
+#         post_timer.tic()
+#         for score, box, mask, cls_idx, im_info in zip(output['scores'], output['boxes'], output['masks'], output['cls_inds'], im_infos):
+#             im_post(all_boxes, all_masks, score, box, mask, cls_idx, test_dataset.num_classes, np.round(im_info[:2] / im_info[2]).astype(np.int32))
+#             idx += 1
+#         if config.network.has_fcn_head:
+#             for i, sseg in enumerate(output['ssegs']):
+#                 sseg = sseg.squeeze(0).astype('uint8')[:int(im_infos[i][0]), :int(im_infos[i][1])]
+#                 all_ssegs.append(cv2.resize(sseg, None, None, fx=1/im_infos[i][2], fy=1/im_infos[i][2], interpolation=cv2.INTER_NEAREST))
+#         if config.network.has_panoptic_head:
+#             pano_cls_inds = []
+#             for i, (pano, cls_ind) in enumerate(zip(output['panos'], output['pano_cls_inds'])):
+#                 pano = pano.squeeze(0).astype('uint8')[:int(im_infos[i][0]), :int(im_infos[i][1])]
+#                 panos.append(cv2.resize(pano, None, None, fx=1/im_infos[i][2], fy=1/im_infos[i][2], interpolation=cv2.INTER_NEAREST))
+#                 pano_cls_inds.append(cls_ind)
 
-            all_panos.extend(panos)
-            panos = []
-            all_pano_cls_inds.extend(pano_cls_inds)
-        post_time = post_timer.toc()
-        s = 'Batch %d/%d, data_time:%.3f, net_time:%.3f, post_time:%.3f' % (idx, len(test_dataset), data_time, net_time, post_time)
-        logging.info(s)
+#             all_panos.extend(panos)
+#             panos = []
+#             all_pano_cls_inds.extend(pano_cls_inds)
+#         post_time = post_timer.toc()
+#         s = 'Batch %d/%d, data_time:%.3f, net_time:%.3f, post_time:%.3f' % (idx, len(test_dataset), data_time, net_time, post_time)
+#         logging.info(s)
 
-    results = []
+#     results = []
 
-    # trim redundant predictions
-    for i in range(1, test_dataset.num_classes):
-        all_boxes[i] = all_boxes[i][:len(test_loader)]
-        if config.network.has_mask_head:
-            all_masks[i] = all_masks[i][:len(test_loader)]
-    if config.network.has_fcn_head:
-        all_ssegs = all_ssegs[:len(test_loader)]
-    if config.network.has_panoptic_head:
-        all_panos = all_panos[:len(test_loader)]
+#     # trim redundant predictions
+#     for i in range(1, test_dataset.num_classes):
+#         all_boxes[i] = all_boxes[i][:len(test_loader)]
+#         if config.network.has_mask_head:
+#             all_masks[i] = all_masks[i][:len(test_loader)]
+#     if config.network.has_fcn_head:
+#         all_ssegs = all_ssegs[:len(test_loader)]
+#     if config.network.has_panoptic_head:
+#         all_panos = all_panos[:len(test_loader)]
 
-    os.makedirs(os.path.join(final_output_path, 'results'), exist_ok=True)
+#     os.makedirs(os.path.join(final_output_path, 'results'), exist_ok=True)
 
-    results = {'all_boxes': all_boxes,
-               'all_masks': all_masks if config.network.has_mask_head else None,
-               'all_ssegs': all_ssegs if config.network.has_fcn_head else None,
-               'all_panos': all_panos if config.network.has_panoptic_head else None,
-               'all_pano_cls_inds': all_pano_cls_inds if config.network.has_panoptic_head else None,
-               }
+#     results = {'all_boxes': all_boxes,
+#                'all_masks': all_masks if config.network.has_mask_head else None,
+#                'all_ssegs': all_ssegs if config.network.has_fcn_head else None,
+#                'all_panos': all_panos if config.network.has_panoptic_head else None,
+#                'all_pano_cls_inds': all_pano_cls_inds if config.network.has_panoptic_head else None,
+#                }
 
-    with open(os.path.join(final_output_path, 'results', 'results_list.pkl'), 'wb') as f:
-        pickle.dump(results, f, protocol=2)
+#     with open(os.path.join(final_output_path, 'results', 'results_list.pkl'), 'wb') as f:
+#         pickle.dump(results, f, protocol=2)
+
+    with open(os.path.join(final_output_path, 'results', 'results_list.pkl'), 'rb') as f:
+        results = pickle.load(f)
+
+    all_boxes = results['all_boxes']
+    all_masks = results['all_masks']
+    all_ssegs = results['all_ssegs']
+    all_panos = results['all_panos']
+    all_pano_cls_inds = results['all_pano_cls_inds']
 
     if config.test.vis_mask:
         test_dataset.vis_all_mask(all_boxes, all_masks, os.path.join(final_output_path, 'results', 'vis'))
@@ -306,10 +315,11 @@ def upsnet_test():
         if config.network.has_panoptic_head:
             logging.info('unified pano result:')
             test_dataset.evaluate_panoptic(test_dataset.get_unified_pan_result(all_ssegs, all_panos, all_pano_cls_inds, stuff_area_limit=config.test.panoptic_stuff_area_limit), os.path.join(final_output_path, 'results', 'pans_unified'))
+
         if config.network.has_fcn_head:
             test_dataset.evaluate_ssegs(all_ssegs, os.path.join(final_output_path, 'results', 'ssegs'))
-            # logging.info('combined pano result:')
-            # test_dataset.evaluate_panoptic(test_dataset.get_combined_pan_result(all_ssegs, all_boxes, all_masks, stuff_area_limit=config.test.panoptic_stuff_area_limit), os.path.join(final_output_path, 'results', 'pans_combined'))
+            logging.info('combined pano result:')
+            test_dataset.evaluate_panoptic(test_dataset.get_combined_pan_result(all_ssegs, all_boxes, all_masks, stuff_area_limit=config.test.panoptic_stuff_area_limit), os.path.join(final_output_path, 'results', 'pans_combined'))
 
 
 if __name__ == "__main__":

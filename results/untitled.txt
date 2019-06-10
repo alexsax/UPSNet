@@ -1,0 +1,9 @@
+fpath="panoptic_val2017_semantic_trainid_stff" 
+mkdir annotations/$fpath
+for f in $(ls images/val2017/); do
+    newf="${f/jpg/png}"
+    cp annotations_all/$fpath/$newf annotations/$fpath/
+done
+
+
+# panoptic_val2017_semantic_trainid_stff panoptic_val2017

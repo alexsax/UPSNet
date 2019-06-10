@@ -220,18 +220,22 @@ class BaseDataset(torch.utils.data.Dataset):
             with open(pan_gt_json_file, 'r') as f:
                 pan_gt_json = json.load(f)
             files = [item['file_name'] for item in pan_gt_json['images']]
+#             files = files[:1000]
+
             cpu_num = multiprocessing.cpu_count()
             files_split = np.array_split(files, cpu_num)
             workers = multiprocessing.Pool(processes=cpu_num)
             processes = []
             for proc_id, files_set in enumerate(files_split):
-                p = workers.apply_async(BaseDataset._load_image_single_core, (proc_id, files_set, pan_gt_folder))
+#                 p = workers.apply_async(BaseDataset._load_image_single_core, (proc_id, files_set, pan_gt_folder))
+                p = BaseDataset._load_image_single_core(proc_id, files_set, pan_gt_folder)
                 processes.append(p)
             workers.close()
             workers.join()
             pan_gt_all = []
             for p in processes:
-                pan_gt_all.extend(p.get())
+#                 pan_gt_all.extend(p.get())
+                pan_gt_all.extend(p)
 
             categories = pan_gt_json['categories']
             categories = {el['id']: el for el in categories}
@@ -246,16 +250,19 @@ class BaseDataset(torch.utils.data.Dataset):
             workers = multiprocessing.Pool(processes=cpu_num)
             processes = []
             for proc_id, pan_2ch_set in enumerate(pan_2ch_split):
-                p = workers.apply_async(BaseDataset._converter_2ch_single_core, (proc_id, pan_2ch_set, color_gererator))
+#                 p = workers.apply_async(BaseDataset._converter_2ch_single_core, (proc_id, pan_2ch_set, color_gererator))
+                p = BaseDataset._converter_2ch_single_core(proc_id, pan_2ch_set, color_gererator)
                 processes.append(p)
             workers.close()
             workers.join()
             annotations, pan_all = [], []
             for p in processes:
-                p = p.get()
+                p = p
+#                 p = p.get()
                 annotations.extend(p[0])
                 pan_all.extend(p[1])
             pan_json = {'annotations': annotations}
+            print("generated results")
             return pan_all, pan_json
 
         def save_image(images, save_folder, gt_json, colors=None):
@@ -266,7 +273,8 @@ class BaseDataset(torch.utils.data.Dataset):
             names_split = np.array_split(names, cpu_num)
             workers = multiprocessing.Pool(processes=cpu_num)
             for proc_id, (images_set, names_set) in enumerate(zip(images_split, names_split)):
-                workers.apply_async(BaseDataset._save_image_single_core, (proc_id, images_set, names_set, colors))
+                BaseDataset._save_image_single_core(proc_id, images_set, names_set, colors)
+#                 workers.apply_async(BaseDataset._save_image_single_core, (proc_id, images_set, names_set, colors))
             workers.close()
             workers.join()
 
@@ -283,13 +291,15 @@ class BaseDataset(torch.utils.data.Dataset):
             workers = multiprocessing.Pool(processes=cpu_num)
             processes = []
             for proc_id, (gt_jsons_set, pred_jsons_set, gt_pans_set, pred_pans_set, gt_image_jsons_set) in enumerate(zip(gt_jsons_split, pred_jsons_split, gt_pans_split, pred_pans_split, gt_image_jsons_split)):
-                p = workers.apply_async(BaseDataset._pq_compute_single_core, (proc_id, gt_jsons_set, pred_jsons_set, gt_pans_set, pred_pans_set, gt_image_jsons_set, categories))
+#                 p = workers.apply_async(BaseDataset._pq_compute_single_core, (proc_id, gt_jsons_set, pred_jsons_set, gt_pans_set, pred_pans_set, gt_image_jsons_set, categories))
+                p = BaseDataset._pq_compute_single_core(proc_id, gt_jsons_set, pred_jsons_set, gt_pans_set, pred_pans_set, gt_image_jsons_set, categories)
                 processes.append(p)
             workers.close()
             workers.join()
             pq_stat = PQStat()
             for p in processes:
-                pq_stat += p.get()
+#                 pq_stat += p.get()
+                pq_stat += p
             metrics = [("All", None), ("Things", True), ("Stuff", False)]
             results = {}
             for name, isthing in metrics:
@@ -319,12 +329,25 @@ class BaseDataset(torch.utils.data.Dataset):
         #     gt_json['images'] = sorted(gt_json['images'], key=lambda x: x['id'])
         # other wise:
         gt_pans, gt_json, categories, color_gererator = get_gt()
-        
+        print("gt_pans results")
+
+#         pred_pans_2ch = pred_pans_2ch[:1000]
         pred_pans, pred_json = get_pred(pred_pans_2ch, color_gererator)
+        print("pred results")
+
         save_image(pred_pans_2ch, os.path.join(output_dir, 'pan_2ch'), gt_json)
         save_image(pred_pans, os.path.join(output_dir, 'pan'), gt_json)
+        print("pans saved")
+        
         json.dump(gt_json, open(os.path.join(output_dir, 'gt.json'), 'w'))
         json.dump(pred_json, open(os.path.join(output_dir, 'pred.json'), 'w'))
+        print("json saved")
+
+
+#         pred_pans, pred_json = get_pred(pred_pans_2ch, color_gererator)
+#         gt_json = json.load(open(os.path.join(output_dir, 'gt.json'), 'r'))
+#         pred_json = json.load(open(os.path.join(output_dir, 'pred.json'), 'r'))
+        print("compute results")
         results = pq_compute(gt_json, pred_json, gt_pans, pred_pans, categories)
 
         return results
@@ -394,6 +417,7 @@ class BaseDataset(torch.utils.data.Dataset):
         processes = []
         for proc_id, (boxes_set, cls_idxs_set, masks_set, sems_set) in enumerate(zip(boxes_split, cls_idxs_split, masks_split, segs_split)):
             p = workers.apply_async(BaseDataset._merge_pred_single_core, (proc_id, boxes_set, cls_idxs_set, masks_set, sems_set, score_threshold, fraction_threshold, stuff_area_limit))
+#             p = BaseDataset._merge_pred_single_core(proc_id, boxes_set, cls_idxs_set, masks_set, sems_set, score_threshold, fraction_threshold, stuff_area_limit)
             processes.append(p)
         workers.close()
         workers.join()
@@ -518,6 +542,7 @@ class BaseDataset(torch.utils.data.Dataset):
         for idx, (gt_json, pred_json, gt_pan, pred_pan, gt_image_json) in enumerate(zip(gt_jsons_set, pred_jsons_set, gt_pans_set, pred_pans_set, gt_image_jsons_set)):
             # if idx % 100 == 0:
             #     logger.info('Compute pq -> Core: {}, {} from {} images processed'.format(proc_id, idx, len(gt_jsons_set)))
+#             print(gt_pan, pred_pan)
             gt_pan, pred_pan = np.uint32(gt_pan), np.uint32(pred_pan)
             pan_gt = gt_pan[:, :, 0] + gt_pan[:, :, 1] * 256 + gt_pan[:, :, 2] * 256 * 256
             pan_pred = pred_pan[:, :, 0] + pred_pan[:, :, 1] * 256 + pred_pan[:, :, 2] * 256 * 256

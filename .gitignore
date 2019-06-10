@@ -6,4 +6,7 @@ build/
 *.py[cod]
 *.so
 *.json
-
+*.ipynb
+*/*/.ipynb_checkpoints
+*/.ipynb_checkpoints
+.ipynb_checkpoints
